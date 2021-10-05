@@ -1,5 +1,5 @@
 <template>
-  <div>haha</div>
+  <div class="origin-app">haha</div>
 </template>
 
 <script>
@@ -8,8 +8,10 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
+.origin-app {
+  background: red;
+}
 </style>
 
 
