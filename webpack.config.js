@@ -19,10 +19,89 @@ module.exports = {
       loader: 'vue-loader'
     }, {
       test: /\.css$/,
-      use: ['vue-style-loader','css-loader']
+      oneOf: [
+        // 匹配‘<style module="dark">’
+        {
+          resourceQuery: /module=dark/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: "[local]_dark_[hash:base64:5]"
+                }
+              }
+            }
+          ]
+        },
+        // 匹配‘<style module="light">’
+        {
+          resourceQuery: /module=light/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: "[local]_light_[hash:base64:5]"
+                }
+              }
+            },
+          ]
+        },
+        // 匹配普通的‘<style>’或‘<style scoped>’
+        {
+          use: [
+            'vue-style-loader',
+            'css-loader'
+          ]
+        }
+      ]
     }, {
       test: /\.scss$/,
-      use: ['vue-style-loader','css-loader','sass-loader']
+      oneOf: [
+        // 匹配‘<style module="dark">’
+        {
+          resourceQuery: /module=dark/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: "[local]_dark_[hash:base64:5]"
+                }
+              }
+            },
+            'sass-loader'
+          ]
+        },
+        // 匹配‘<style module="light">’
+        {
+          resourceQuery: /module=light/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: "[local]_light_[hash:base64:5]"
+                }
+              }
+            },
+            'sass-loader'
+          ]
+        },
+        // 匹配普通的‘<style>’或‘<style scoped>’
+        {
+          use: [
+            'vue-style-loader',
+            'css-loader',
+            'sass-loader'
+          ]
+        }
+      ]
     }]
   },
   // 插件
