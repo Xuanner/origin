@@ -2,6 +2,8 @@ const path = require('path')
 
 // 引入vue-loader的插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+// 自动生成index.html插件
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -106,7 +108,13 @@ module.exports = {
   },
   // 插件
   plugins: [
-    new VueLoaderPlugin
+    new VueLoaderPlugin,
+    new HtmlWebpackPlugin({
+      // 设置生成预览页面的模板文件
+      template: './public/index.html',
+      // 设置生成预览页面名称
+      filename: 'index.html'
+    })
   ],
   resolve: {
     alias: {
